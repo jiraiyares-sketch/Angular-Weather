@@ -1,0 +1,58 @@
+<h2>Weather App</h2>
+
+<input [(ngModel)]="city" placeholder="Digite uma cidade">
+
+<button (click)="searchCity()">
+  Buscar
+</button>
+
+<button (click)="getCurrentLocation()">
+  📍 Minha Localização
+</button>
+
+<button (click)="saveFavorite(city)">
+  ⭐ Favoritar
+</button>
+
+<button (click)="showTestNotification()">
+  🔔 Testar Notificação
+</button>
+
+<!-- clima atual -->
+<div *ngIf="weatherData">
+  <h3>{{ weatherData.name }}</h3>
+
+  <img [src]="getIcon(weatherData.weather[0].icon)">
+
+  <p>Temperatura: {{ weatherData.main.temp }} °C</p>
+  <p>{{ weatherData.weather[0].description }}</p>
+</div>
+
+<hr>
+
+<!-- previsão 5 dias -->
+<div *ngIf="forecastDays.length">
+  <h3>Previsão 5 dias</h3>
+
+  <div *ngFor="let day of forecastDays">
+    <p>{{ day.date }}</p>
+
+    <img [src]="getIcon(day.icon)">
+
+    <p>{{ day.temp }} °C</p>
+    <p>{{ day.description }}</p>
+  </div>
+</div>
+
+<hr>
+
+<!-- favoritos -->
+<h3>Favoritos</h3>
+
+<div *ngFor="let fav of favorites">
+  <span (click)="selectFavorite(fav)" style="cursor:pointer">
+    {{ fav }}
+  </span>
+
+  <button (click)="removeFavorite(fav)">❌</button>
+</div>
